@@ -1,8 +1,7 @@
 import pathlib
 import inspect
 
-class Path(type(pathlib.Path)):
-	
+class Path(type(pathlib.Path())):
 	@staticmethod
 	def script_dir():
 		print(inspect.stack()[1].filename)

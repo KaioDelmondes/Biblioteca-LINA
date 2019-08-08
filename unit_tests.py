@@ -1,13 +1,13 @@
 import os
 import shutil
-import unittest
-from pathology.path import Path
+from unittest import TestCase, main
+from pathology.oath import Path
 
-class PathTest(unittest.TestCase):
+class PathTest(TestCase):
 	def test_script_dir(self):
 		expected = os.path.abspath(os.path.dirname(__file__))
 		actual = str(Path.script_dir())
-		self.assertEqual(expected,actual)
+		self.assertEqual(expected, actual)
 
 	def test_file_acess(self):
 		script_dir = os.path.abspath(os.path.dirname(__file__))
@@ -24,4 +24,4 @@ class PathTest(unittest.TestCase):
 		self.assertEqual(content, actual)
 
 if __name__ == '__main__':
-	unittest.main()
+	main()
