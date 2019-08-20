@@ -1,0 +1,17 @@
+Requisitos Funcionais{
+	Ler Base .csv
+
+	Agrupar uma Base
+	Discretizar os Grupos
+	Classificação dos Atributos
+	Rotulação dos Grupos
+	Salvar Rótulos/Resultados
+}
+
+Requisitos Não Funcionais{
+	A aplicação deve ser capaz de ler um arquivo .csv(Comma Separeted Values)
+	A aplicação deve ser capaz de receber uma base como variável
+	A aplicação será capaz de discretizar dados usando o método EWD
+	A aplicação será capaz de discretizar dados usando o método EFD
+	A aplicação será capaz de  dados usando o método EWD
+}
