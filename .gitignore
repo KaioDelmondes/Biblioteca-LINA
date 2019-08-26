@@ -106,3 +106,6 @@ venv.bak/
 
 # Using LESS
 *.css
+
+#Desse Projeto
+*.LOCK
