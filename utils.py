@@ -1,11 +1,11 @@
-import pandas
+from pandas import DataFrame, read_csv
 
-def read_csv(path, separador=","):
-	bd = pandas.read_csv(path,sep=',',parse_dates=True)
+def ler_csv(path, separador=","):
+	bd = read_csv(path,sep=',',parse_dates=True)
 	return bd
 
 def make_df(data):
-	return pandas.DataFrame(data)
+	return DataFrame(data)
 
 def get_groups(DataFrameGroupedBy, k=None):
 	if k is None:
@@ -13,3 +13,9 @@ def get_groups(DataFrameGroupedBy, k=None):
 	grupos = [DataFrameGroupedBy.get_group(i) for i in range(k)]
 	return grupos
 
+def is_matriz(array):
+	try:
+		array.shape[1]
+		return True
+	except IndexError:
+		return False
