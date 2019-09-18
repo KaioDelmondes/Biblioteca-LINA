@@ -1,6 +1,5 @@
-import pandas
 import interfaces.scikitlearn_interface as scikitlearn_interface
-import utils
+from utils import get_groups
 
 def Kmeans(db,k):
 	data_df = utils.make_df(db)
@@ -9,7 +8,7 @@ def Kmeans(db,k):
 
 	clusters_agrupados = agrupar(data_df, col_cluster)
 	
-	return utils.get_groups(clusters_agrupados, k), col_cluster
+	return get_groups(clusters_agrupados, k), col_cluster
 
 
 def agrupar(data_df, labels):
