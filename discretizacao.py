@@ -1,5 +1,6 @@
 import interfaces.pandas_interface as pandas_interface
 import numpy
+from pandas import DataFrame
 
 class generalizacao_discretizadores:
 	def __init__(self, data, faixas_discretizacao):
@@ -7,24 +8,28 @@ class generalizacao_discretizadores:
 		self.faixas_discretizacao = faixas_discretizacao
 		self.is_faixas_valid()
 		self.discrete_data = numpy.zeros(self.data.shape)
+		self.disc_detalhes = None
 
 	def discretizar(self):
 		if self.qt_columns == 1:
+
 			if isinstance(self.faixas_discretizacao, list):
-				if len(self.faixas_discretizacao) == 1:
-					self.discrete_data =  self.metodo_de_discretizacao(self.data, self.faixas_discretizacao[0])
+				self.discrete_data, intervalos =  self.metodo_de_discretizacao(self.data, self.faixas_discretizacao[0])
 			else:
-				self.discrete_data = self.metodo_de_discretizacao(self.data, self.faixas_discretizacao)
+				self.discrete_data, intervalos = self.metodo_de_discretizacao(self.data, self.faixas_discretizacao)
 
 		else:
+			intervalos = []
+
 			for i in range(self.qt_columns):
 				if isinstance(self.faixas_discretizacao, list):
-					if len(self.faixas_discretizacao) == 1:
-						self.discrete_data[:,i]= self.metodo_de_discretizacao(self.data[:,i], self.faixas_discretizacao[0])
-					else:
-						self.discrete_data[:,i]= self.metodo_de_discretizacao(self.data[:,i], self.faixas_discretizacao[i])
+					self.discrete_data[:,i], intervalo = self.metodo_de_discretizacao(self.data[:,i], self.faixas_discretizacao[i])
+					intervalos.append(intervalo)
 				else:
-					self.discrete_data[:,i]= self.metodo_de_discretizacao(self.data[:,i], self.faixas_discretizacao)
+					self.discrete_data[:,i], intervalo = self.metodo_de_discretizacao(self.data[:,i], self.faixas_discretizacao)
+					intervalos.append(intervalo)
+
+		self.detalha_disc(intervalos)
 
 	def is_faixas_valid(self):
 		try:
@@ -35,12 +40,23 @@ class generalizacao_discretizadores:
 		if isinstance(self.faixas_discretizacao, int) and self.faixas_discretizacao > 0:
 			return True
 		elif isinstance(self.faixas_discretizacao,list) and all(isinstance(n,int) and n > 0 for n in self.faixas_discretizacao):
-			if len(self.faixas_discretizacao) == self.qt_columns or len(self.faixas_discretizacao) == 1:
+			if len(self.faixas_discretizacao) == self.qt_columns:
 				return True
 			else:
-				raise ValueError("A lista deve ser inteira e positiva, com um único elemento ou com a mesma quantidade de colunas da matriz")
+				raise ValueError("A lista deve ser inteira e positiva, com a mesma quantidade de colunas da matriz")
 		else:
 			raise TypeError("A entrada desse argumento deve ser uma lista de inteiros positivos com tamanho igual à quantidade de colunas da matriz, ou um inteiro que será usada para todas as colunas da matriz")
+
+	def detalha_disc(self, intervalos):
+		rows_labels, col_labels = self.get_data_labels(intervalos)
+		self.disc_detalhes = DataFrame(intervalos, index=rows_labels, columns=col_labels) if isinstance(intervalos,list) else DataFrame([intervalos], index=rows_labels, columns=col_labels)
+
+	def get_data_labels(self, inter):
+		pontos_de_corte = max(self.faixas_discretizacao) if isinstance(self.faixas_discretizacao, list) else self.faixas_discretizacao
+		col_labels = ["P_C %s"%x for x in range(1, pontos_de_corte+2)]
+		rows_labels = ["COLUNA %s"%x for x in range(1, self.qt_columns+1)]
+		return rows_labels,col_labels
+
 
 class EWD(generalizacao_discretizadores):
 	def __init__(self, data, faixas_discretizacao):

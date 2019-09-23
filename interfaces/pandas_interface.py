@@ -3,18 +3,18 @@ OBSERVAÇÕES:
 	O parâmetro labels nos métodos cut e qcut simplificam o retorno do método, mas levam aperda de informação. Informações como intervalos de valor de cada faixa seria útil
 """
 
-import pandas
+from pandas import qcut, cut
 
 def EWD_to_pandas(array,qt_faixas):
 	try:
-		atributo_disc = pandas.cut(array, bins=qt_faixas, labels=False)
-		return atributo_disc
+		data, intervalos = cut(array, bins=qt_faixas, labels=False, retbins=True)
+		return data, intervalos
 	except Exception as e:
 		raise e
 
 def EFD_to_pandas(array,qt_faixas):
 	try:
-		atributo_disc = pandas.qcut(array, q=qt_faixas, labels=False)
-		return atributo_disc
+		data, intervalos = qcut(array, q=qt_faixas, labels=False, retbins=True, duplicate='drop')
+		return data, intervalos
 	except Exception as e:
 		raise e
