@@ -1,5 +1,5 @@
 #README
-'''Biblioteca-LINA
+'''bash
 │   .gitignore
 │   agrupamento.py
 │   classificacao.py
