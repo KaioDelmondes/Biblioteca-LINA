@@ -1,5 +1,5 @@
 #README
-'''bash
+```bash
 │   .gitignore
 │   agrupamento.py
 │   classificacao.py
@@ -28,4 +28,4 @@
 └───tests
         base teste desagrupada.csv
         base teste.csv
-'''
+```
