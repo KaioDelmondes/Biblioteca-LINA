@@ -1,31 +1,31 @@
 #README
-'''
-³   .gitignore
-³   agrupamento.py
-³   classificacao.py
-³   diret¢rio.md
-³   discretizacao.py
-³   ERS.txt
-³   Lina-UML.asta
-³   README.md
-³   script.py
-³   utils.py
-³   __init__.py
-³   
-ÃÄÄÄ.vscode
-³       settings.json
-³       
-ÃÄÄÄinterfaces
-³       pandas_interface.py
-³       scikitlearn_interface.py
-³       
-ÃÄÄÄlinar
-³       lopes.py
-³       
-ÃÄÄÄTCC files
-³       Prompt Resultado da Rotula‡Æo da base Öris.png
-³       
-ÀÄÄÄtests
+'''Biblioteca-LINA
+│   .gitignore
+│   agrupamento.py
+│   classificacao.py
+│   diretório.txt
+│   discretizacao.py
+│   ERS.txt
+│   Lina-UML.asta
+│   README.md
+│   script.py
+│   utils.py
+│   __init__.py
+│
+├───.vscode
+│       settings.json
+│
+├───interfaces
+│       pandas_interface.py
+│       scikitlearn_interface.py
+│
+├───linar
+│       lopes.py
+│
+├───TCC files
+│       Prompt Resultado da Rotulação da base Íris.png
+│
+└───tests
         base teste desagrupada.csv
         base teste.csv
 '''
