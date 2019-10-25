@@ -7,9 +7,6 @@
 ├───linar
 │       lopes.py
 │
-├───TCC files
-│       Prompt Resultado da Rotulação da base Íris.png
-│
 ├───tests
 │       base teste desagrupada.csv
 │       base teste.csv
