@@ -8,10 +8,6 @@ Biblioteca-LINA/
 ├───linar
 │       lopes.py
 │
-├───tests
-│       base teste desagrupada.csv
-│       base teste.csv
-│
 │   agrupamento.py
 │   classificacao.py
 │   discretizacao.py
@@ -28,10 +24,6 @@ Biblioteca-LINA/
 |       pandas_interface.py
 |       scikitlearn_interface.py
 |
-+---linar
+\---linar
 |       lopes.py
-|
-\---tests
-        base teste desagrupada.csv
-        base teste.csv
 ```
