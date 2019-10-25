@@ -25,5 +25,5 @@ Biblioteca-LINA/
 |       scikitlearn_interface.py
 |
 \---linar
-|       lopes.py
+        lopes.py
 ```
