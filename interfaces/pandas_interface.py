@@ -14,7 +14,7 @@ def EWD_to_pandas(array,qt_faixas):
 
 def EFD_to_pandas(array,qt_faixas):
 	try:
-		data, intervalos = qcut(array, q=qt_faixas, labels=False, retbins=True, duplicate='drop')
+		data, intervalos = qcut(array, q=qt_faixas, labels=False, retbins=True)
 		return data, intervalos
 	except Exception as e:
 		raise e

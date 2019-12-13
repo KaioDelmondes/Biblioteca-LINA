@@ -1,6 +1,5 @@
 from interfaces.scikitlearn_interface import MLP_sklearn
 import numpy
-from utils import is_matriz
 
 class MLP:
 	"""docstring for MLP"""
@@ -12,7 +11,7 @@ class MLP:
 	
 	def estimar(self, attbr):
 		attbr = numpy.asarray(attbr)
-		if is_matriz(attbr):
+		if attbr.ndim == 2:
 			return self.modelo.estimar_n(attbr)
 		else:
 			return self.modelo.estimar_um(attbr)

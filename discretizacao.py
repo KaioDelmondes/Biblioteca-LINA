@@ -4,29 +4,30 @@ from pandas import DataFrame
 
 class generalizacao_discretizadores:
 	def __init__(self, data, faixas_discretizacao):
-		self.data = numpy.asarray(data)
+		self.data = DataFrame(data)
 		self.faixas_discretizacao = faixas_discretizacao
 		self.is_faixas_valid()
-		self.discrete_data = numpy.zeros(self.data.shape)
+		self.discrete_data = DataFrame(numpy.zeros(self.data.shape), columns = self.data.columns, index = self.data.index)
 		self.disc_detalhes = None
 
 	def discretizar(self):
 		if self.qt_columns == 1:
 
 			if isinstance(self.faixas_discretizacao, list):
-				self.discrete_data, intervalos =  self.metodo_de_discretizacao(self.data, self.faixas_discretizacao[0])
+				self.discrete_data, intervalos =  self.metodo_de_discretizacao(self.data.values, self.faixas_discretizacao[0])
 			else:
-				self.discrete_data, intervalos = self.metodo_de_discretizacao(self.data, self.faixas_discretizacao)
+				self.discrete_data, intervalos = self.metodo_de_discretizacao(self.data.values, self.faixas_discretizacao)
+
 
 		else:
 			intervalos = []
 
 			for i in range(self.qt_columns):
 				if isinstance(self.faixas_discretizacao, list):
-					self.discrete_data[:,i], intervalo = self.metodo_de_discretizacao(self.data[:,i], self.faixas_discretizacao[i])
+					self.discrete_data.values[:,i], intervalo = self.metodo_de_discretizacao(self.data.values[:,i], self.faixas_discretizacao[i])
 					intervalos.append(intervalo)
 				else:
-					self.discrete_data[:,i], intervalo = self.metodo_de_discretizacao(self.data[:,i], self.faixas_discretizacao)
+					self.discrete_data.values[:,i], intervalo = self.metodo_de_discretizacao(self.data.values[:,i], self.faixas_discretizacao)
 					intervalos.append(intervalo)
 
 		self.detalha_disc(intervalos)
@@ -54,21 +55,17 @@ class generalizacao_discretizadores:
 	def get_data_labels(self, inter):
 		pontos_de_corte = max(self.faixas_discretizacao) if isinstance(self.faixas_discretizacao, list) else self.faixas_discretizacao
 		col_labels = ["P_C %s"%x for x in range(1, pontos_de_corte+2)]
-		rows_labels = ["COLUNA %s"%x for x in range(1, self.qt_columns+1)]
+		rows_labels = self.data.columns
 		return rows_labels,col_labels
 
 
 class EWD(generalizacao_discretizadores):
 	def __init__(self, data, faixas_discretizacao):
 		super().__init__(data, faixas_discretizacao)
-
-	def metodo_de_discretizacao(self, array, intervalo):
-		return pandas_interface.EWD_to_pandas(array, intervalo)
+		self.metodo_de_discretizacao = pandas_interface.EWD_to_pandas
 
 class EFD(generalizacao_discretizadores):
 	"""docstring for EFD"""
 	def __init__(self, data, faixas_discretizacao):
 		super().__init__(data, faixas_discretizacao)
-	
-	def metodo_de_discretizacao(self, array, intervalo):
-			return pandas_interface.EFD_to_pandas(array, intervalo)
+		self.metodo_de_discretizacao = pandas_interface.EFD_to_pandas
